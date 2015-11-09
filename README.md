@@ -146,5 +146,5 @@ constructor(@Logger() defaultLogger: LoggerInstance,
 
 * check what extra winston features can be used and implement its configuration
 
-[1]: https://github.com/PLEEROCK/microframework
-[2]: https://github.com/winstonjs/winston
+[1]: https://github.com/winstonjs/winston
+[2]: https://github.com/PLEEROCK/microframework
