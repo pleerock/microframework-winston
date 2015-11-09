@@ -82,7 +82,7 @@ export class Gulpfile {
     @SequenceTask()
     package() {
         return [
-            ['cleanCompiled', 'cleanPackage'],
+            'clean',
             'compile',
             ['packageFiles', 'packagePreparePackageFile', 'packageReadmeFile', 'packageGenerateDts']
         ];
