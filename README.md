@@ -18,7 +18,6 @@ Assuming you have already installed [microframework][2]. If you didn't do it yet
 3. Simply register module in the microframework when you are bootstrapping it.
     
     ```typescript
-    
     import {MicroFrameworkBootstrapper} from "microframework/MicroFrameworkBootstrapper";
     import {WinstonModule} from "microframework-winston/WinstonModule";
     
@@ -36,7 +35,6 @@ Assuming you have already installed [microframework][2]. If you didn't do it yet
 4. Add configuration section to your microframework's configuration:
 
     ```json
-
     {
         "winston": {
             "defaultLogger": {
@@ -64,7 +62,6 @@ Assuming you have already installed [microframework][2]. If you didn't do it yet
 5. Now you can inject winston logger instance in your classes:
 
     ```typescript
-    
     export class UserRepository {
     
         private logger: LoggerInstance;

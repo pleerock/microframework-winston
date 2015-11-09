@@ -15,7 +15,7 @@ export class Gulpfile {
      */
     @Task()
     clean(cb: Function) {
-        return del(['./build/**', '!./build/es6/gulpfile.js'], cb);
+        return del(['./build/**', '!./build/es5/gulpfile.js'], cb);
     }
 
     /**
@@ -34,7 +34,7 @@ export class Gulpfile {
      */
     @Task()
     packageFiles() {
-        return gulp.src('./build/es6/src/**')
+        return gulp.src('./build/es5/src/**/*')
             .pipe(gulp.dest('./build/package'));
     }
 
