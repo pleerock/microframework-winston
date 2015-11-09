@@ -15,7 +15,7 @@ export class WinstonModule implements Module {
     private configuration: WinstonModuleConfig;
 
     // -------------------------------------------------------------------------
-    // Accessors
+    // Public Methods
     // -------------------------------------------------------------------------
 
     getName(): string {
@@ -45,20 +45,15 @@ export class WinstonModule implements Module {
     }
 
     // -------------------------------------------------------------------------
-    // Accessors
+    // Private Methods
     // -------------------------------------------------------------------------
 
     private setupLoggers() {
-
-        if (this.configuration.defaultLogger) {
+        if (this.configuration.defaultLogger)
             loggers.add('default', this.configuration.defaultLogger.transports);
-        }
 
-        if (this.configuration.loggers) {
-            this.configuration.loggers.forEach(logger => {
-                loggers.add(logger.name, logger.transports);
-            });
-        }
+        if (this.configuration.loggers)
+            this.configuration.loggers.forEach(logger => loggers.add(logger.name, logger.transports));
     }
 
 }

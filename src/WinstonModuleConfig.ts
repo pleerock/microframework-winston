@@ -16,11 +16,19 @@ export interface WinstonModuleConfig {
     }
 
     /**
-     * Other loggers.
+     * Extra loggers.
      */
     loggers: {
+        /**
+         * Logger name.
+         */
         name: string;
+
+        /**
+         * Logger transports.
+         */
         transports: { [name: string]: Object; };
+
     }[];
 
 }

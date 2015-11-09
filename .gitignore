@@ -1,5 +1,6 @@
-built/
+build/
 node_modules/
 typings/
 !typings/references.d.ts
 npm-debug.log
+tsd-debug.log
