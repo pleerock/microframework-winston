@@ -132,7 +132,7 @@ You can use multiple loggers. To do so, you need to define extra loggers in the 
 ```
 
 This configuration will create 3 loggers: **default**, **consoleLogger** and **fileLogger**. 
-You will be able to inject them by specifying a name parameter to `@Logger` annotation:
+You will be able to inject them by specifying a name parameter to `@Logger` decorator:
 
 ```typescript
 constructor(@Logger() defaultLogger: LoggerInstance,
