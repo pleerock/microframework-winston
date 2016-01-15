@@ -2,7 +2,7 @@
 
 Adds integration between [winston][1] and [microframework][2].
 
-## Simple Usage
+## Installation
 
 Assuming you have already installed [microframework][2]. If you didn't do it yet, go to its page, read instructions
  and install it.
@@ -15,7 +15,9 @@ Assuming you have already installed [microframework][2]. If you didn't do it yet
 
     `tsd install --save winston es6-promise`
 
-3. Simply register module in the microframework when you are bootstrapping it.
+## Usage
+
+1. Simply register module in the microframework when you are bootstrapping it.
     
     ```typescript
     import {MicroFrameworkBootstrapper} from "microframework/MicroFrameworkBootstrapper";
@@ -32,7 +34,7 @@ Assuming you have already installed [microframework][2]. If you didn't do it yet
             
     ```
     
-4. Add configuration section to your microframework's configuration:
+2. Add configuration section to your microframework's configuration:
 
     ```json
     {
@@ -59,7 +61,7 @@ Assuming you have already installed [microframework][2]. If you didn't do it yet
     [here](https://github.com/winstonjs/winston#working-with-multiple-loggers-in-winston) and 
     [here](https://github.com/winstonjs/winston/blob/master/docs/transports.md).
 
-5. Now you can inject winston logger instance in your classes:
+3. Now you can inject winston logger instance in your classes:
 
     ```typescript
     export class UserRepository {

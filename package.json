@@ -1,7 +1,7 @@
 {
   "name": "microframework-winston",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Winston integration with microframework",
   "license": "Apache-2.0",
   "readmeFilename": "README.md",
@@ -27,20 +27,19 @@
     "logs",
     "winston"
   ],
-  "typings": "./microframework-winston.d.ts",
   "typescript": {
     "definitions": [
-      "microframework-winston.d.ts"
+      "index.d.ts"
     ]
   },
   "dependencies": {
-    "microframework": ">=0.1.6",
-    "typedi": "*",
-    "winston": "*"
+    "microframework": "~0.3.0",
+    "typedi": "~0.1.0",
+    "winston": "2.x.x"
   },
   "devDependencies": {
     "del": "^2.0.2",
-    "dts-generator": "^1.6.0",
+    "dts-generator": "^1.6.2",
     "glob": "^5.0.15",
     "gulp": "^3.9.0",
     "gulp-replace": "^0.5.4",
@@ -48,9 +47,5 @@
     "gulpfile.ts": "0.0.2",
     "tsd": "^0.6.4",
     "typescript": "^1.6.2"
-  },
-  "scripts": {
-    "start": "./node_modules/.bin/tsd install && ./node_modules/.bin/tsd rebundle && ./node_modules/.bin/tsd link && ./node_modules/.bin/tsc",
-    "postversion": "./node_modules/.bin/gulp package"
   }
 }
