@@ -65,12 +65,12 @@ export class Gulpfile {
     @Task()
     packageGenerateDts(cb: Function) {
         glob('./src/**/*.ts', (err: any, files: string[]) => {
-            const name = require(__dirname + '/../../package.json').name;
+            const name = require('./package.json').name;
             dtsGenerator({
                 name: name,
                 baseDir: './src',
                 files: files,
-                out: './build/package/' + name + '.d.ts'
+                out: './build/package/index.d.ts'
             });
             cb();
         });
