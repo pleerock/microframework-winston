@@ -9,11 +9,17 @@ Assuming you have already installed [microframework][2]. If you didn't do it yet
 
 1. Install module:
 
-    `npm install --save microframework-winston`
+    `npm install microframework-winston --save`
 
-2. Install required [tsd](http://definitelytyped.org/tsd/) dependencies:
+2. Install [typings](https://github.com/typings/typings) dependencies:
 
-    `tsd install --save winston es6-promise`
+    `typings install`
+
+3. ES6 features are used, so you may want to install [es6-shim](https://github.com/paulmillr/es6-shim) too:
+
+    `npm install es6-shim --save`
+
+    you may need to `require("es6-shim");` in your app.
 
 ## Usage
 
@@ -85,7 +91,6 @@ Assuming you have already installed [microframework][2]. If you didn't do it yet
         }
     
     }
-    
     ```
 
 ## Using multiple loggers
@@ -149,4 +154,4 @@ constructor(@Logger() defaultLogger: LoggerInstance,
 * check what extra winston features can be used and implement its configuration
 
 [1]: https://github.com/winstonjs/winston
-[2]: https://github.com/PLEEROCK/microframework
+[2]: https://github.com/pleerock/microframework

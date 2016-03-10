@@ -13,7 +13,7 @@ export interface WinstonModuleConfig {
      */
     defaultLogger: {
         transports: { [name: string]: Object; };
-    }
+    };
 
     /**
      * Extra loggers.

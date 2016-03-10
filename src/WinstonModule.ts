@@ -19,11 +19,11 @@ export class WinstonModule implements Module {
     // -------------------------------------------------------------------------
 
     getName(): string {
-        return 'WinstonModule';
+        return "WinstonModule";
     }
 
     getConfigurationName(): string {
-        return 'winston';
+        return "winston";
     }
 
     isConfigurationRequired(): boolean {
@@ -50,7 +50,7 @@ export class WinstonModule implements Module {
 
     private setupLoggers() {
         if (this.configuration.defaultLogger)
-            loggers.add('default', this.configuration.defaultLogger.transports);
+            loggers.add("default", this.configuration.defaultLogger.transports);
 
         if (this.configuration.loggers)
             this.configuration.loggers.forEach(logger => loggers.add(logger.name, logger.transports));

@@ -1,0 +1,12 @@
+{
+  "ambientDevDependencies": {
+    "Q": "github:DefinitelyTyped/DefinitelyTyped/q/Q.d.ts#421d6610bdb09e1015b71f5991d7a68d079eca21",
+    "gulp": "registry:dt/gulp#3.8.0+20150825164847",
+    "orchestrator": "registry:dt/orchestrator#0.0.0+20150821143159"
+  },
+  "ambientDependencies": {
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160215162030",
+    "node": "registry:dt/node#4.0.0+20160226132328",
+    "winston": "registry:dt/winston#0.0.0+20160304133439"
+  }
+}

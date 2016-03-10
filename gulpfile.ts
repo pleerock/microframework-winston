@@ -1,21 +1,27 @@
-import {Gulpclass, Task, SequenceTask} from "gulpfile.ts/Annotations";
-import * as gulp from "gulp";
+import {Gulpclass, Task, SequenceTask} from "gulpclass/Decorators";
 
-const del: any = require('del');
-const shell: any = require('gulp-shell');
-const dtsGenerator: any = require('dts-generator').default;
-const replace: any = require('gulp-replace');
-const glob: any = require('glob');
+const gulp = require("gulp");
+const del = require("del");
+const shell = require("gulp-shell");
+const replace = require("gulp-replace");
+const mocha = require("gulp-mocha");
+const chai = require("chai");
+const tslint = require("gulp-tslint");
+const stylish = require("tslint-stylish");
 
 @Gulpclass()
 export class Gulpfile {
+
+    // -------------------------------------------------------------------------
+    // General tasks
+    // -------------------------------------------------------------------------
 
     /**
      * Cleans build folder.
      */
     @Task()
     clean(cb: Function) {
-        return del(['./build/**', '!./build/es5/gulpfile.js'], cb);
+        return del(["./build/**"], cb);
     }
 
     /**
@@ -23,9 +29,22 @@ export class Gulpfile {
      */
     @Task()
     compile() {
-        return gulp.src('*.js', { read: false })
+        return gulp.src("*.js", { read: false })
+            .pipe(shell(["tsc"]));
+    }
+
+    // -------------------------------------------------------------------------
+    // Packaging and Publishing tasks
+    // -------------------------------------------------------------------------
+
+    /**
+     * Publishes a package to npm from ./build/package directory.
+     */
+    @Task()
+    npmPublish() {
+        return gulp.src("*.js", { read: false })
             .pipe(shell([
-                './node_modules/.bin/tsc'
+                "cd ./build/package && npm publish"
             ]));
     }
 
@@ -34,8 +53,8 @@ export class Gulpfile {
      */
     @Task()
     packageFiles() {
-        return gulp.src('./build/es5/src/**/*')
-            .pipe(gulp.dest('./build/package'));
+        return gulp.src("./build/es5/src/**/*")
+            .pipe(gulp.dest("./build/package"));
     }
 
     /**
@@ -43,9 +62,9 @@ export class Gulpfile {
      */
     @Task()
     packagePreparePackageFile() {
-        return gulp.src('./package.json')
-            .pipe(replace('"private": true,', '"private": false,'))
-            .pipe(gulp.dest('./build/package'));
+        return gulp.src("./package.json")
+            .pipe(replace("\"private\": true,", "\"private\": false,"))
+            .pipe(gulp.dest("./build/package"));
     }
 
     /**
@@ -54,26 +73,18 @@ export class Gulpfile {
      */
     @Task()
     packageReadmeFile() {
-        return gulp.src('./README.md')
-            .pipe(replace(/```typescript([\s\S]*?)```/g, '```javascript$1```'))
-            .pipe(gulp.dest('./build/package'));
+        return gulp.src("./README.md")
+            .pipe(replace(/```typescript([\s\S]*?)```/g, "```javascript$1```"))
+            .pipe(gulp.dest("./build/package"));
     }
 
     /**
-     * Generates a .d.ts file that is needed for the npm package and will be imported by others.
+     * This task will copy typings.json file to the build package.
      */
     @Task()
-    packageGenerateDts(cb: Function) {
-        glob('./src/**/*.ts', (err: any, files: string[]) => {
-            const name = require('./package.json').name;
-            dtsGenerator({
-                name: name,
-                baseDir: './src',
-                files: files,
-                out: './build/package/index.d.ts'
-            });
-            cb();
-        });
+    copyTypingsFile() {
+        return gulp.src("./typings.json")
+            .pipe(gulp.dest("./build/package"));
     }
 
     /**
@@ -82,10 +93,55 @@ export class Gulpfile {
     @SequenceTask()
     package() {
         return [
-            'clean',
-            'compile',
-            ['packageFiles', 'packagePreparePackageFile', 'packageReadmeFile', 'packageGenerateDts']
+            "clean",
+            "compile",
+            ["packageFiles", "packagePreparePackageFile", "packageReadmeFile", "copyTypingsFile"]
         ];
+    }
+
+    /**
+     * Creates a package and publishes it to npm.
+     */
+    @SequenceTask()
+    publish() {
+        return ["package", "npmPublish"];
+    }
+
+    // -------------------------------------------------------------------------
+    // Run tests tasks
+    // -------------------------------------------------------------------------
+
+    /**
+     * Runs ts linting to validate source code.
+     */
+    @Task()
+    tslint() {
+        return gulp.src(["./src/**/*.ts", "./test/**/*.ts", "./sample/**/*.ts"])
+            .pipe(tslint())
+            .pipe(tslint.report(stylish, {
+                emitError: true,
+                sort: true,
+                bell: true
+            }));
+    }
+
+    /**
+     * Runs unit-tests.
+     */
+    @Task()
+    unit() {
+        chai.should();
+        chai.use(require("sinon-chai"));
+        return gulp.src("./build/es5/test/unit/**/*.js")
+            .pipe(mocha());
+    }
+
+    /**
+     * Compiles the code and runs tests.
+     */
+    @SequenceTask()
+    tests() {
+        return ["compile", "tslint", "unit"];
     }
 
 }
