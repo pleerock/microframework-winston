@@ -1,3 +1,5 @@
+> This repository is deprecated. Microframework architecure has changed. Please consider writing your own module for a newer versions of microframework.
+
 # Winston module for Microframework
 
 Adds integration between [winston][1] and [microframework][2].
